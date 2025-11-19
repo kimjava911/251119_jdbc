@@ -21,7 +21,7 @@ public class BoardRepository {
 
     public List<Board> findAll() {
         try (Statement statement = connection.createStatement(); ) {
-            String query = "SELECT * FROM board";
+            String query = "SELECT * FROM BOARD";
             ResultSet rs = statement.executeQuery(query);
             List<Board> boardList = new ArrayList<>();
             while (rs.next()) {
