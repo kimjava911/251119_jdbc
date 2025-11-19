@@ -40,3 +40,7 @@ build/
 
 ### Dotenv
 .env
+
+### aiven
+dataSources
+dataSources.xml
