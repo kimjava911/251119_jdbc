@@ -4,10 +4,7 @@ import kr.java.jdbc.entity.Board;
 import kr.java.jdbc.util.DBUtil;
 import org.springframework.stereotype.Repository;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,9 +17,17 @@ public class BoardRepository {
     }
 
     public boolean login(String username) {
-        try (Statement statement = connection.createStatement(); ) {
-            String query = "SELECT 1 FROM dual WHERE '%s' = '%s'";
-            return statement.executeQuery(query.formatted("kimjava", username)).next();
+        //        String query = "SELECT 1 FROM dual WHERE '%s' = '%s'";
+        String query = "SELECT 1 FROM dual WHERE ? = ?";
+//        try (Statement statement = connection.createStatement(); ) {
+        try (PreparedStatement pstmt = connection.prepareStatement(query); ) {
+            // Statement <- 문자열을 그냥 집어넣음 그대로. -> SQL 문 자체로 인식함
+            // JDBC Statement -> 문자열 쿼리 -> 그냥 그대로 실행시켜버리는... SQL Injection
+//            return statement.executeQuery(query.formatted("kimjava", username)).next();
+            pstmt.setString(1, "kimjava"); // 쿼리가 아니라 '값'으로 인식하게 됨
+            pstmt.setString(2, username);
+            // ' OR '1'='1 <- 들어가도...
+            return pstmt.executeQuery().next();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
