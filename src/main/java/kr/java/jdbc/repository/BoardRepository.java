@@ -19,6 +19,20 @@ public class BoardRepository {
         this.connection = DBUtil.getConnection();
     }
 
+    // 저장 -> return?
+    // 1. 아무것도 리턴하지 않는다 <- 문제가 있다면 SQLException
+    // 2. boolean <- true/false / Exception
+    // 3. int <- update, delete 몇개가 있는지...
+    // 4. Entity
+    public void save(String content) {
+        try (Statement statement = connection.createStatement(); ) {
+            String query = "INSERT INTO BOARD (content) VALUES ('%s')";
+            statement.executeUpdate(query.formatted(content));
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public List<Board> findAll() {
         try (Statement statement = connection.createStatement(); ) {
             String query = "SELECT * FROM BOARD";

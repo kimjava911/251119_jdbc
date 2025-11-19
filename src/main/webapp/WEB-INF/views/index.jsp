@@ -13,5 +13,10 @@
     %>
         <p>ID : <%= b.boardId() %> / CONTENT : <%= b.content() %> / CREATED_AT : <%= b.createdAt() %></p>
     <% } %>
+
+    <form method="post">
+        <input name="content" placeholder="내용 입력">
+        <button>등록</button>
+    </form>
 </body>
 </html>
