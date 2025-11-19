@@ -19,6 +19,15 @@ public class BoardRepository {
         this.connection = DBUtil.getConnection();
     }
 
+    public boolean login(String username) {
+        try (Statement statement = connection.createStatement(); ) {
+            String query = "SELECT 1 FROM dual WHERE '%s' = '%s'";
+            return statement.executeQuery(query.formatted("kimjava", username)).next();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     // 저장 -> return?
     // 1. 아무것도 리턴하지 않는다 <- 문제가 있다면 SQLException
     // 2. boolean <- true/false / Exception

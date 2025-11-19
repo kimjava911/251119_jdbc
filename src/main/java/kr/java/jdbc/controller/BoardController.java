@@ -29,4 +29,16 @@ public class BoardController {
        boardRepository.save(content);
        return "redirect:/";
     }
+
+    @PostMapping("/login")
+    public String login(
+            @RequestParam("username") String username
+    ) {
+        if (boardRepository.login(username)) {
+            System.out.println("로그인 성공");
+        } else {
+            System.out.println("로그인 실패");
+        }
+        return "redirect:/";
+    }
 }

@@ -18,5 +18,10 @@
         <input name="content" placeholder="내용 입력">
         <button>등록</button>
     </form>
+
+    <form method="post" action="login">
+        <input name="username" placeholder="이름 입력">
+        <button>로그인</button>
+    </form>
 </body>
 </html>
